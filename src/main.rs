@@ -1,4 +1,4 @@
-use std::io::{self, Write, BufReader, prelude::*};
+use std::io::{self, BufReader, prelude::*};
 use std::fs::File;
 use std::env;
 
@@ -12,11 +12,11 @@ fn read (input: &mut String) {
 fn main() {
     let command_line_args: Vec<String> = env::args().collect();
     if command_line_args.len() != 2 {
-        panic!("Need to specify the fileName")
+        panic!("Need to specify the name of the file")
     }
 
     let file_name = &command_line_args[1];
-    let file = File::open(file_name).expect("Cannot open the file");
+    let file = File::options().read(true).write(true).open(file_name).expect("Cannot open the file");
     let reader = BufReader::new(file);
 
     print!("Search for a number: ");
